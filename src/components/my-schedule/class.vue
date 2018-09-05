@@ -327,7 +327,7 @@ export default {
     }
     .class-detail span{
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
     }
     .class-detail label span{
         color:rgb(163,170,185);
@@ -343,7 +343,7 @@ export default {
         margin-left:px2rem(50px);
         font-size:px2rem(36px);
         color:rgb(28,38,57);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
     }
     header img{
         width:px2rem(48px);
@@ -393,7 +393,7 @@ export default {
     .check-in span{
         font-size:px2rem(24px);
         color:rgb(163,170,185);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
     }
     img.forward{
         width:px2rem(70px);
@@ -407,7 +407,7 @@ export default {
         line-height:px2rem(68px);
         color:#fff;
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         margin:0 auto;
         margin-top:px2rem(50px);
     }

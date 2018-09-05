@@ -33,7 +33,7 @@ export default {
 
 	body {
 	//background-color: #fbf9fe;
-		font-family: 'PingFang-SC-Medium';
+		font-family: "PingFang-SC-Medium","Microsoft YaHei";
 		height: 100%;
 		overflow: hidden;
 	}

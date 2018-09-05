@@ -47,7 +47,7 @@ export default {
     .class-name{
         font-size:px2rem(24px);
         color:rgb(28,38,57);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
     }
     .class-name span{
         display:inline-block;
@@ -57,7 +57,7 @@ export default {
         text-indent:4em;
         font-size:px2rem(28px);
         color:rgb(163,170,185);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
     }
     .right img{
         width:px2rem(80px);

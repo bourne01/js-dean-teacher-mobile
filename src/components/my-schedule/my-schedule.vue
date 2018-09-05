@@ -277,7 +277,7 @@ export default {
     }
     .thActive{
         background-color:rgb(73,120,195);
-        font-family: 'PingFang-SC-Bold';
+        font-family: 'PingFang-SC-Bold',"Microsoft YaHei";
         font-size:px2rem(28px);
     }
 </style>

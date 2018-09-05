@@ -269,7 +269,7 @@ export default {
     tbody td{
         padding:px2rem(10px) 0;
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         color:rgb(28,38,57);
         text-align:center;
         border-right:1px solid #f2f3f9;

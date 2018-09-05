@@ -149,7 +149,7 @@ export default {
     label{
         width:px2rem(112px);
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         color:rgb(163,170,185);
         display:inline-block;
         text-align: justify;
@@ -161,7 +161,7 @@ export default {
         margin-top:px2rem(60px);
         margin-bottom:px2rem(60px);
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         color:rgb(28,38,57);
     }
     .name,.gender-txt,.mobile,.birth-place,.id{

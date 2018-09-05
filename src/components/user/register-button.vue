@@ -39,7 +39,7 @@ export default {
         text-align: center;
         color:rgb(92,157,255);
         background-color:#fff;
-        font-family: 'HiraginoSansGB-W3';  
+        font-family: 'HiraginoSansGB-W3',"Microsoft YaHei";  
     }
     .active{
         border: 1px solid rgb(92,92,92);

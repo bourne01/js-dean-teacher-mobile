@@ -213,7 +213,7 @@ export default {
         @return ($px / $rem) + rem; 
     }
     .today-course-txt{
-        font-family: 'PingFang-SC-Heavy';
+        font-family: 'PingFang-SC-Heavy',"Microsoft YaHei";
         font-size:px2rem(28px);
         color:rgb(28,38,57);
     }
@@ -223,7 +223,7 @@ export default {
         margin-bottom:px2rem(40px);
     }
     .all-courses{
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         font-size:px2rem(24px);
         color:rgb(155,158,163);
     }
@@ -277,7 +277,7 @@ export default {
     .course-name{
         margin-top:px2rem(30px);
         font-size:px2rem(28px);
-        font-family: 'PingFang-SC-Heavy';
+        font-family: 'PingFang-SC-Heavy',"Microsoft YaHei";
         color:rgb(28,38,57);
     }
     .course img{
@@ -286,12 +286,12 @@ export default {
     }
     .course .item-text{
         font-size:px2rem(24px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         color:rgb(163,170,185);
     }
     .classname,.classroom-name,.teacher-name{
         font-size:px2rem(24px);
-        font-family: 'PingFang-SC-Medium';
+        font-family: 'PingFang-SC-Medium',"Microsoft YaHei";
         color:rgb(28,38,57);
     }
 </style>
