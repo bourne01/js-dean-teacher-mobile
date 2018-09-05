@@ -22,26 +22,26 @@
             </div>
             <div class="mobile">
                 <label>手机</label>
-                <span>{{me.phone}}</span>
+                <span>{{me.mobile}}</span>
             </div>
             <div class="birth-place">
                 <label>籍贯</label>
                 <span>{{me.origin}}</span>
             </div>
             <div class="join-date">
-                <label>所在部门</label>
-                <span>{{me.depName}}</span>
-            </div>   
+                <label>入职日期</label>
+                <span>{{me.joinDate}}</span>
+            </div>          
         </div>
         <div class="isolation-strip"></div>
         <div class="other-info">
             <div class="id">
                 <label>身份证号</label>
-                <span>{{me.cardNO}}</span>
+                <span>{{me.iDcard}}</span>
             </div> 
             <div class="address">
-                <label>政治面貌</label>
-                <span>{{me.political}}</span>
+                <label>家庭住址</label>
+                <span>{{me.address}}</span>
             </div> 
         </div>
     </div>
@@ -49,20 +49,16 @@
 
 <script>
 export default {
+/*     props:['me'], */
     data(){
         return{
             me:{},
-            dir:'..'
         }
     },
     methods:{
-        /**@function 监听关闭按钮事件，然后向父组件传递关闭信息 */
-        onClick(){
-            this.$emit('close');
-        },
         /**@function 获取我的个人信息 */
         getMyInfo(){
-            let url = this.dir+'/public/thr!myInf.action';
+            let url = 'api/public/thr!myInf.action';
             let params = {};
             this.$http(url,{params})
                 .then( res => {
@@ -76,33 +72,13 @@ export default {
                     this.reqErrorHandler(err);
                 })
         },
-        /**@function Ajax请求异常处理 
-         * @param {出错对象} errObj
-        */
-        reqErrorHandler(errObj){
-            console.log(errObj);
-            if(errObj.response){ 
-                let errResStatus = errObj.response.status; 
-                if(errResStatus == 500 || errResStatus == 504){
-                    //this.$msgbox('网络异常','请稍后重试！',2000);
-                    this.isException = true;
-                }else if(errResStatus == 404){
-                    //this.$router.push('/page-not/found');
-                }else if(errResStatus == 401){
-                    this.$msgbox('未授权登录,正在跳转...','',500);
-                    //this.$router.push('/login')
-                    //location.href = 'http://my.wzzyzz.com/login?service='+location.href
-            }}
+        /**@function 监听关闭按钮事件，然后向父组件传递关闭信息 */
+        onClick(){
+            this.$emit('close');
         },        
     },
     created(){
-        let me = JSON.parse(sessionStorage.getItem('Me'));
-        if(!me){
-            this.getMyInfo();
-        }else{
-            this.me = me;
-        }
-        
+        this.getMyInfo();
     }
 }
 </script>

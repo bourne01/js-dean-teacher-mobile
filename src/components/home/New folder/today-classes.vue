@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="header">
-            <div class="today-course-txt">今日您有<span>{{todayTotalClasses}}</span>堂课程</div>
-            <!-- <span to="/course-list" class="all-courses" @click="onClick">{{allCourseText}}
-                <img :src="require('../../assets/forward.png')" alt=""></span> -->
+            <div class="today-course-txt">今日您有<span style="color:red;">{{todayTotalClasses}}</span>堂课程</div>
+            <span to="/course-list" class="all-courses" @click="onClick">{{allCourseText}}
+                <img :src="require('../../assets/forward.png')" alt=""></span>
         </div>
         <div :style="classList"></div>
         <div class="class-info" v-if="isShow">
@@ -17,7 +17,7 @@
                     &nbsp;&nbsp;&nbsp;{{todayFirstClass.classTime}}
                 </div>                        
             </div>
-            <div class="course">
+            <div class="course" @click="goClassAtt(todayFirstClass,classOrders[0])">
                 <div class="course-name">{{todayFirstClass.coursename}}</div>
                 <div class="class">
                     <img :src="require('../../assets/classmate.png')" alt="">
@@ -29,10 +29,10 @@
                 </div>
                 <div class="teacher">
                     <img :src="require('../../assets/teacher.png')" alt="">
-                    &nbsp;<span class="item-text">老师</span>&nbsp;<span class="teacher-name">{{me.name}}</span>
+                    &nbsp;<span class="item-text">老师</span>&nbsp;<span class="teacher-name">{{teacher.name}}</span>
                 </div>
             </div>
-            <!-- <exception @exception="getException" v-if="isException"></exception> -->
+            <exception @exception="getException" v-if="isException"></exception>
         </div>
         <div class="class-info" v-else v-for="(todayClass,index) in todayClasses" :key="index">
             <div class="class-time-sequence">
@@ -45,7 +45,7 @@
                     &nbsp;&nbsp;&nbsp;{{todayClass.classTime}}
                 </div>                        
             </div>
-            <div class="course">
+            <div class="course" @click="goClassAtt(todayClass,classOrders[index])">
                 <div class="course-name">{{todayClass.coursename}}</div>
                 <div class="class">
                     <img :src="require('../../assets/classmate.png')" alt="">
@@ -57,42 +57,36 @@
                 </div>
                 <div class="teacher">
                     <img :src="require('../../assets/teacher.png')" alt="">
-                    &nbsp;<span class="item-text">老师</span>&nbsp;<span class="teacher-name">{{me.name}}</span>
+                    &nbsp;<span class="item-text">老师</span>&nbsp;<span class="teacher-name">{{teacher.name}}</span>
                 </div>
             </div>
-            <exception @exception="getException" v-if="isException"></exception>
-            
         </div>
-        <no-data v-if="todayClasses.length===0&&!isException">今日无课</no-data>
     </div>
 </template>
 
 <script>
 import Exception from './exception-popup'
-import NoData from '../base/no-data'
 export default {
     props:['schedule','teacher','term-id','is-exception'],
     components:{
-        Exception,
-        NoData,
+        Exception
     },
     data(){
         return{
             todayFirstClass:{classname:'',coursename:'',classroom:''},
             classTimeList:[
-                            '08:20-09:00','09:10-09:50','10:05-10:45','10:55-11:35',
-                            '13:20-14:00','14:10-14:50','15:05-15:45','15:45-16:25'],
+                            '08:00-08:40','08:50-09:30','09:40-10:20','10:30-11:10',
+                            '13:30-14:10','14:20-15:00','15:10-15:50','16:00-16:40'],
             todayTotalClasses:0,//今日总共多少节课
             firstClassTime:'',//第一节上课时间
             todayClasses:[],//今日课程数
             allCourseText:'查看全部课程',
             classOrders:[],//记录有课的课序号
             classIds:[],//记录本课的授课班级Id
-            isShow:false,
-            me:{},//当前教师对象
+            isShow:true,
+            me:null,//当前教师对象
             classList:{maxHeight:'',overflow:'auto'},
             //isException:false
-            dir:'..'
         }
     },
     methods:{
@@ -105,20 +99,23 @@ export default {
             }           
             this.isShow=!this.isShow;                        
         },
-        /**@function 获取我的个人信息 */
-        getMyInfo(){
-            let url = this.dir+'/public/thr!myInf.action';
-            let params = {};
+        /**@function 获取当前是第几周 */
+        getCurWeek(){
+            let url = '../credit/term!getCurWeek.action';
+            let params = {state:2};
             this.$http(url,{params})
                 .then( res => {
+                    console.log(res);
                     let objData = res.data;
                     if(objData.success){
-                        this.me = objData.data;
-                        sessionStorage.setItem('Me',JSON.stringify(this.me));
+                        this.curWeek = objData.week;
+                        this.curWeekday = objData.weekday;
+                    }else{
+                        this.$msgbox(objData.message);
                     }
                 })
-                .catch(err => {
-                    this.reqErrorHandler(err);
+                .catch( err => {
+
                 })
         },
         /**@function 从课表中获取今日第一节课 
@@ -135,7 +132,7 @@ export default {
             let isFirstClass = true;//是否今日头节课
             if(!this.schedule.length)return;
             for(let i=0;i<8;i++){//8为一天总共有多少节课
-                //console.log(this.schedule[i][today]);
+                console.log(this.schedule[i][today]);
                 if(this.schedule[i][today][0] && isFirstClass){
                     this.todayFirstClass.classname = this.schedule[i][today][0];
                     this.todayFirstClass.classroom = this.schedule[i][today][2];
@@ -160,49 +157,36 @@ export default {
                     this.classOrders.push(i+1);
                 }
             }
+        },        
+        /**@function 跳转到课堂考勤 */
+        goClassAtt(course,classOrder){
+            course.section = classOrder;
+            course.termId = this.termId;
+            course.teacher = this.teacher;
+            this.$router.push({path:'/class-att',query:course})
         },
-        /**@function Ajax请求异常处理 
-         * @param {出错对象} errObj
-        */
-        reqErrorHandler(errObj){
-            //console.log(errObj);
-            if(errObj.response){ 
-                let errResStatus = errObj.response.status; 
-                if(errResStatus == 500 || errResStatus == 504){
-                    //this.$msgbox('网络异常','请稍后重试！',2000);
-                    this.isException = true;
-                }else if(errResStatus == 404){
-                    //this.$router.push('/page-not/found');
-                }else if(errResStatus == 401){
-                    this.$msgbox('未授权登录,正在跳转...','',1000);
-                    //this.$router.push('/login')
-                    //location.href = 'http://my.wzzyzz.com/login?service='+location.href
-            }}
-        },       
-        
         /**捕获网络异常事件 */
         getException(){
             //this.isException = false;
             this.$emit('exception');
-            //console.log('Got an exception from network...')
+            console.log('Got an exception from network...')
         }
         
     },
     watch:{
             schedule:{
-                handler:function(newVal, oldVal){
-                    /* console.log(newVal);
-                    console.log(oldVal);
-                    console.log(this.schedule); */
+                handler:function(newVal, oldVal){                    
                     this.getTodayClass();
                 },
                 deep:true,                
             }
         },
     mounted(){
-        this.classList.maxHeight = 642/37.5+'rem';
+        let htmlHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+        let classList = htmlHeight - (642*htmlWidth/375) + 'px';       
+        this.classList.maxHeight = classList;
         this.getTodayClass();
-        this.getMyInfo();
     }
 }
 </script>

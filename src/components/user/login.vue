@@ -34,6 +34,7 @@ export default {
         return{
             username:'',
             password:'',
+            dir:'..',
         }
     },
     methods:{
@@ -53,7 +54,7 @@ export default {
         submit(){
             this.$http.defaults.withCredentials=true;
             this.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            let url = 'api/public/thr!login.action';
+            let url = this.dir+'/public/thr!login.action';
             let params = {account:this.username,password:this.password};
             this.$http.post(
                     url,

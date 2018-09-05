@@ -103,7 +103,8 @@ export default {
             curTerm:{},//当前学期
             curWeek:'',//当前第几周
             curWeekday:'',//当前星期几,
-            me:'',//当前教师            
+            me:'',//当前教师
+            dir:'..'            
         }
     },
     computed:{
@@ -145,7 +146,7 @@ export default {
         },
         /**@function 获取我的个人信息 */
         getMyInfo(){
-            let url = 'api/public/thr!myInf.action';
+            let url = this.dir+'/public/thr!myInf.action';
             let params = {};
             this.$http(url,{params})
                 .then( res => {
@@ -161,7 +162,7 @@ export default {
         },
         /**@function 获取当前是第几周 */
         getCurWeek(){
-            let url = 'api/public/term!weekN.action';
+            let url = this.dir+'/public/term!weekN.action';
             let params = {};
             this.$http(url,{params})
                 .then( res => {

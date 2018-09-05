@@ -48,7 +48,8 @@ export default {
             courses:{},
             teaId:'',//教师Id
             value:[],
-            objCouList:{height:'',overflow:'scroll'}
+            objCouList:{height:'',overflow:'scroll'},
+            dir:'..',
         }
     },
     methods:{
@@ -60,7 +61,7 @@ export default {
          * @param {学期Id} termId
          */
         getCourseList(termId){
-            let url = 'api/public/thrCou!myCou.action'
+            let url = this.dir+'/public/thrCou!myCou.action'
             let params = {
                 termId,
                 rstInf:3
@@ -82,7 +83,7 @@ export default {
         /**@function 获取学期列表 
         */
         getTermList(){
-            let url = 'api/public/baseWebDat';
+            let url = this.dir+'/public/baseWebDat';
             let params = {
                         f:'uxTerm',
                         state:2,

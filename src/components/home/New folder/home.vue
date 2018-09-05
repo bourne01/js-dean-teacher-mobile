@@ -67,7 +67,6 @@ export default {
             isException:false,
             objHeight:{maxHeight:'',overflow:'auto'},
             isComCached:false,//组件是否是缓存着的，默认不是
-            dir:'..',
         }
     },
     methods:{
@@ -77,7 +76,7 @@ export default {
         },        
         /**@function 获取学期列表 */
         getTermList(){
-            let url = this.dir+'/public/baseWebDat';
+            let url = 'api/public/baseWebDat';
             let params = {
                         f:'uxTerm',
                         state:2,
@@ -98,7 +97,7 @@ export default {
          * @param {学期Id} termId
         */
         getMySchedule(termId){
-            let url = this.dir+'/public/thrCou!mySch.action';
+            let url = 'api/public/thrCou!mySch.action';
             let params = {termId,};
             this.$http(url,{params})
                 .then( res => {
@@ -140,7 +139,7 @@ export default {
                     this.$msgbox('未授权登录,正在跳转...','',500);
                     //location.href = 'http://my.wzzyzz.com/login?service='+location.href
             }}
-        },
+        },         
         /**捕获网络异常事件,然后重新发出Ajax请求 */
         getException(){
             this.isException = false;

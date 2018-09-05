@@ -93,7 +93,8 @@ export default {
                 midScore:null,//期中成绩
                 finScore:null,//期末成绩
                 ordScore:null,//平时成绩
-            }
+            },
+            dir:'..',
         }
     },
     methods:{
@@ -114,7 +115,7 @@ export default {
         },
         /**@function 获取学生课程结果信息 */
         getCourseResult(queryParams){
-            let url = 'api/stuCouRst!queryOneCou.action';
+            let url = this.dir+'/stuCouRst!queryOneCou.action';
             let params = {
                         termId:queryParams.termId,
                         claId:queryParams.claId,
@@ -175,7 +176,7 @@ export default {
                 /**如果期末、期中和平时成绩都没有更改，则返回 */
                 if(!finScore && !midScore && !ordScore)
                     return;
-                let url = 'api/stuCouRst!save.action.action';
+                let url = this.dir+'/stuCouRst!save.action.action';
                 let params = {
                             finScore,
                             midScore,
@@ -209,7 +210,7 @@ export default {
                 //this.$router.push('/page-not/found');
             }else if(errResStatus == 401){
                 this.$msgbox('未授权登录,正在跳转...','',500);
-                location.href = 'http://my.wzzyzz.com/login?service='+location.href
+                //location.href = 'http://my.wzzyzz.com/login?service='+location.href
             } 
         }, 
     },   

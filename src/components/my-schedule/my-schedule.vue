@@ -74,6 +74,7 @@ export default {
                     '一','二','三','四','五','六','日'
                     ],
             tbody:{height:'',overflow:'scroll'},
+            dir:'..',
         }
     },
     methods:{
@@ -84,7 +85,7 @@ export default {
         
         /**@function 获取当前是第几周 */
         getCurWeek(){
-            let url = 'api/public/term!weekN.action';
+            let url = this.dir+'/public/term!weekN.action';
             let params = {};
             this.$http(url,{params})
                 .then( res => {
@@ -107,7 +108,7 @@ export default {
         },
         /**@function 获取学期列表 */
         getTermList(){
-            let url = 'api/public/baseWebDat';
+            let url = this.dir+'/public/baseWebDat';
             let params = {
                         f:'uxTerm',
                         state:2,
@@ -136,7 +137,7 @@ export default {
          * @param {学期Id} termId
         */
         getMySchedule(termId){
-            let url = 'api/public/thrCou!mySch.action';
+            let url = this.dir+'/public/thrCou!mySch.action';
             let params = {termId,};
             this.$http(url,{params})
                 .then( res => {
